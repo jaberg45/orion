@@ -4,7 +4,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from drf_yasg.utils import swagger_auto_schema
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 
@@ -13,11 +12,6 @@ from account.forms import AddUserForm
 from .models import Room
 
 
-
-@swagger_auto_schema(
-    operation_description="",
-    operation_summary="",
-)
 @require_POST
 def create_room(request, uuid):
     name = request.POST.get('name', '')
@@ -27,13 +21,6 @@ def create_room(request, uuid):
     return JsonResponse({'message': 'Room created successfully'})
 
 
-
-
-
-@swagger_auto_schema(
-    operation_description="Retrieve product details",
-    operation_summary="Retrieve product details",
-)
 @login_required
 def admin(request, *args, **kwargs):
     users = User.objects.filter(is_staff=True)
